@@ -11,21 +11,20 @@ jobs:
 
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install Dependencies
       run: |
         sudo apt update
-        sudo apt install -y git zip unzip openjdk-17-jdk python3-pip python3-setuptools python3-wheel libffi-dev libssl-dev build-essential
+        sudo apt install -y zip unzip openjdk-17-jdk python3-pip build-essential libffi-dev libssl-dev
         pip install buildozer cython==0.29.36
-        buildozer init || true
 
     - name: Build APK
       run: |
         buildozer android debug
 
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: habittracker-apk
         path: bin/*.apk

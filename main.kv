@@ -1,0 +1,43 @@
+<HabitAppRoot>:
+    orientation: 'vertical'
+    spacing: 10
+    padding: 20
+
+    Label:
+        text: 'Habit Tracker'
+        font_size: 32
+        size_hint_y: None
+        height: self.texture_size[1] + 10
+
+    Button:
+        text: 'Add Habit'
+        size_hint_y: None
+        height: 50
+        on_press: root.open_add_habit()
+
+    Button:
+        text: 'Run Habit'
+        size_hint_y: None
+        height: 50
+        disabled: not root.habits
+        on_press: app.root.ids.screen_manager.current = "run_screen"
+
+    Button:
+        text: 'End Day'
+        size_hint_y: None
+        height: 50
+        disabled: not root.habits
+
+    ScreenManager:
+        id: screen_manager
+        size_hint_y: 1
+
+        MainScreen:
+            name: "run_screen"
+
+
+<MainScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Habit list will go here"

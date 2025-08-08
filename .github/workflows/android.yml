@@ -10,21 +10,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
-    - name: Install Dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y zip unzip openjdk-17-jdk python3-pip build-essential libffi-dev libssl-dev
-        pip install buildozer cython==0.29.36
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-    - name: Build APK
-      run: |
-        buildozer android debug
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            libtool \
+            autoconf \
+            automake \
+            pkg-config \
+            build-essential \
+            ccache \
+            libffi-dev \
+            git zip unzip openjdk-17-jdk
 
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: habittracker-apk
-        path: bin/*.apk
+          python -m pip install --upgrade pip
+          pip install buildozer Cython
+
+      - name: Initialize Buildozer
+        run: |
+          buildozer init || true  # Skip if already exists
+          buildozer android debug
+          
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: habittracker-apk
+          path: bin/*.apk

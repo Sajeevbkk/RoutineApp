@@ -2,13 +2,20 @@
 title = Habit Tracker
 package.name = habittracker
 package.domain = org.bro.habittracker
+
 source.dir = .
-source.include_exts = py,kv,txt,json
 source.main = main.py
+source.include_exts = py,kv,txt,json
+
+version = 0.1
+
 requirements = python3,kivy
+
 orientation = portrait
 fullscreen = 1
+
 android.permissions = INTERNET
+
 android.api = 33
 android.minapi = 21
 android.ndk = 25b

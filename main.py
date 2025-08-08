@@ -12,7 +12,6 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 
 
 def get_today_filename():
-    # waste line
     now = datetime.now()
     folder = now.strftime("%m-%Y")
     os.makedirs(folder, exist_ok=True)
